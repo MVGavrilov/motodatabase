@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+{% load bootstrap4 %}
+{% bootstrap_css %}
+  <link rel="icon" href="/media/favicon.ico">
+</head>
+<style>
+  body {
+  background-color: #eee;
+}
+</style>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/motorcycles">Мотоциклы</a>
+      </li>
+      {% if user.is_staff %}
+      <li class="nav-item">
+        <a class="nav-link" href="/add_moto">Добавить мот</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/add_manufacturer">Добавить производителя</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/add_model">Добавить модель</a>
+      </li>
+      {% endif %}
+      {% if user.is_superuser %}
+      <li class="nav-item">
+        <a class="nav-link" href="/add_user">Добавить пользователя</a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+  </div class="collapse navbar-collapse">
+  <ul class="navbar-nav ml-auto">
+    {% if user.is_authenticated %}
+    <label class="navbar-brand">{{ user.username }}</label>
+    <li class="nav-item">
+      <a class="nav-item nav-link" href="/logout">Logout</a>
+    </li>
+    {% else %}
+    <li class="nav-item">
+      <a class="nav-item nav-link" href="/login">Login</a>
+    </li>
+    {% endif %}
+  </ul>
+
+  </div>
+</nav>
+<div class="container-fluid mt-3">
+  {% bootstrap_messages %}
+  {% block content %}
+  No content.
+  {% endblock %}
+</div>
+</body>
+</html>

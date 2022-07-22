@@ -1,0 +1,53 @@
+{% extends 'assortment/base.html' %}
+{% block content %}
+{%if user in motorcycle.show_to.all or user.is_superuser %}
+<h1>{{ motorcycle.model }} : {{ motorcycle.name }}
+  {% if motorcycle.pub_user == user or user.is_superuser %}
+  <a href="/edit_moto/{{ motorcycle.id }}/" class="btn btn-primary mb-2">Изменить</a>
+  <a href="/delete_moto/{{ motorcycle.id }}/" class="btn btn-danger mb-2">Удалить</a>
+  {% endif %}
+</h1>
+<div class="row">
+  <div class="col-md-5 col-sm-7">
+    <img src="{{ motorcycle.photo.url }}" width="100%" class="featurette-image center-block img-responsive">
+  </div>
+  <div class="col-md-7 col-sm-5">
+    <p>Год выпуска: {{ motorcycle.year }}</p>
+    <p>Пробег: {{ motorcycle.mileage }} км</p>
+    <p>Цена: {{ motorcycle.price }} руб</p>
+    <p>Добавил {{ motorcycle.pub_user }} {{ motorcycle.pub_date|date:"d.m.Y" }}</p>
+    <p>Описание: {{ motorcycle.description }}</p>
+  </div>
+</div>
+
+<h2>Подробности:</h2>
+<ul class="list-group">
+  {% for feature in motorcycle.motorcyclefeature_set.all %}
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col-md-3">
+        {% if feature.photo %}
+        <img
+            width="100%"
+            src="{{ feature.photo.url }}"/>
+        {% endif %}
+      </div>
+      <div class="col-md-9">
+        <p>{{ feature.description }}</p>
+        {% if motorcycle.pub_user == user or user.is_superuser %}
+        <a href="/remove_feature/{{ feature.id }}/" class="btn btn-sm btn-danger">Удалить</a>
+        {% endif %}
+      </div>
+    </div>
+  </li>
+  {% endfor %}
+  {% if motorcycle.pub_user == user or user.is_superuser %}
+  <li class="list-group-item">
+    <a href="/add_feature/{{ motorcycle.id }}" class="btn btn-sm btn-success btn-block">Добавить</a>
+  </li>
+</ul>
+{% endif %}
+{% else %}
+<h1>Доступ запрещен</h1>
+{% endif %}
+{% endblock %}

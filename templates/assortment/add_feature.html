@@ -1,0 +1,25 @@
+{% extends 'assortment/base.html' %}
+{% block content %}
+<style>
+.form-add-feature {
+  max-width: 600px;
+  padding: 15px;
+  margin: 0 auto;
+}
+</style>
+<form class="form-add-feature" enctype="multipart/form-data" method="post">
+  {% csrf_token %}
+  <div class="input-group mb-1">
+    <label for="id_photo">Фото:</label>
+    <input class="form-control-file" type="file" name="photo" accept="image/*" id="id_photo">
+  </div>
+  <div class="input-group mb-1">
+    <div class="input-group-prepend">
+      <span class="input-group-text mb-1">Описание:</span>
+    </div>
+    <textarea class="form-control mb-1" name="description" cols="40" rows="10" required id="id_description"
+              aria-label="Описание"></textarea>
+  </div>
+  <input class="btn btn-primary btn-block" type="submit" value="Добавить">
+</form>
+{% endblock %}

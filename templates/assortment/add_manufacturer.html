@@ -1,0 +1,16 @@
+{% extends 'assortment/base.html' %}
+{% block content %}
+<style>
+.form-add-manufacturer {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+</style>
+<form class="form-add-manufacturer" enctype="multipart/form-data" method="post">
+  {% csrf_token %}
+  <input class="form-control mb-1" type="text" name="name" maxlength="30" required id="id_name"
+         placeholder="Название">
+  <input class="btn btn-primary btn-block" type="submit" value="Добавить">
+</form>
+{% endblock %}

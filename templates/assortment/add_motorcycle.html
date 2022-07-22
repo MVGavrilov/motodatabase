@@ -1,0 +1,60 @@
+{% extends 'assortment/base.html' %}
+{% block content %}
+<style>
+.form-add-motorcycle {
+  max-width: 600px;
+  padding: 15px;
+  margin: 0 auto;
+}
+
+
+
+
+</style>
+<form class="form-add-motorcycle" enctype="multipart/form-data" method="post">
+  {% csrf_token %}
+
+  <input class="form-control mb-1" type="text" name="name" maxlength="50" required id="id_name" placeholder="Имя">
+
+  <select class="form-control mb-1" name="model" required id="id_model">
+    <option value="" selected>Модель</option>
+    {% for mdl in form.model.field.queryset %}
+    <option value="{{ mdl.id }}">{{ mdl.name }}</option>
+    {% endfor %}
+  </select>
+
+  <div class="input-group mb-1">
+    <label for="id_photo">Фото:</label>
+    <input class="form-control-file" type="file" name="photo" accept="image/*" id="id_photo">
+  </div>
+
+  <div class="input-group">
+    <div><label class="input-group-text" for="id_year">Год:</label></div>
+    <input class="form-control mb-1" type="number" name="year" value="0" required id="id_year" placeholder="Год">
+  </div>
+
+  <div class="input-group mb-1">
+    <div class="input-group-prepend">
+      <span class="input-group-text">Цена:</span>
+    </div>
+    <input class="form-control" type="number" name="price" value="0" required id="id_price">
+  </div>
+
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text mb-1">Описание:</span>
+    </div>
+    <textarea class="form-control mb-1" name="description" cols="40" rows="10" required id="id_description"
+              aria-label="Описание"></textarea>
+  </div>
+
+  <label for="id_show_to">Кому показывать:</label>
+  <select class="input-group mb-1" name="show_to" id="id_show_to" multiple>
+    {% for usr in form.show_to.field.queryset %}
+    <option value="{{ usr.id }}">{{ usr.username }}</option>
+    {% endfor %}
+  </select>
+
+  <input class="btn btn-primary btn-block" type="submit" value="Добавить">
+</form>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'assortment/base.html' %}
+{% block content %}
+<style>
+.form-add-model {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+</style>
+<form class="form-add-model" enctype="multipart/form-data" method="post">
+  {% csrf_token %}
+
+  <select class="custom-select" name="manufacturer" required id="id_manufacturer">
+  <option value="" selected>Производитель</option>
+
+  {% for manufacturer in form.manufacturer.field.queryset %}
+    <option value="{{ manufacturer.id }}">{{ manufacturer.name }}</option>
+  {% endfor %}
+  </select>
+
+  <input class="form-control mb-1" type="text" name="name" maxlength="50" required id="id_name"
+         placeholder="Название">
+  <input class="btn btn-primary btn-block" type="submit" value="Добавить">
+</form>
+{% endblock %}
