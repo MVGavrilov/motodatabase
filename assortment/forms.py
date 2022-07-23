@@ -53,6 +53,10 @@ class AddManufacturerForm(forms.Form):
             raise ValidationError(name + ' был добавлен ранее.')
         return name
 
+    def save(self):
+        manufacturer = Manufacturer.objects.create(name=self.cleaned_data['name'])
+        return manufacturer
+
 
 class AddUserForm(forms.Form):
     def __init__(self, *args, **kwargs):
@@ -83,3 +87,14 @@ class AddUserForm(forms.Form):
         if validate_password(password):
             raise ValidationError('Пароль не удовлетворяет требованиям.')
         return password
+
+    def save(self):
+        user = User.objects.create_user(
+            username=self.cleaned_data['username'],
+            email=self.cleaned_data['email'],
+            first_name=self.cleaned_data['first_name'],
+            last_name=self.cleaned_data['last_name'],
+            is_staff=self.cleaned_data['is_staff'],)
+        user.set_password(self.cleaned_data['password'])
+        user.save()
+        return user

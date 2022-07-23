@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from . import rest_views
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -18,4 +19,7 @@ urlpatterns = [
     path('add_manufacturer/', views.AddManufacturerView.as_view(), name='add_manufacturer_view'),
     path('edit_moto/<int:pk>/', views.EditMotorcycleView.as_view(), name='edit_moto_view'),
     path('delete_moto/<int:pk>/', views.DeleteMotorcycleView.as_view(), name='delete_moto_view'),
+
+    path('api/models/<int:manufacturer_id>', rest_views.get_models, name='get_all_models'),
+    path('api/manufacturers', rest_views.get_manufacturers, name='get_all_manufacturers'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

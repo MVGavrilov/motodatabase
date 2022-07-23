@@ -51,6 +51,8 @@ class AddMotorcycleView(LoginRequiredMixin, generic.CreateView):
     template_name = 'assortment/add_motorcycle.html'
     fields = ['name', 'year', 'description', 'photo', 'show_to', 'price', 'model']
 
+    manufacturers = Manufacturer.objects.all()
+
     def form_valid(self, form):
         form.instance.pub_user = self.request.user
         return super().form_valid(form)
@@ -161,3 +163,4 @@ class AddModelView(LoginRequiredMixin, generic.CreateView):
 
     def get_success_url(self):
         return reverse('motorcycles_list')
+
