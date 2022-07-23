@@ -140,7 +140,7 @@ class RemoveFeatureView(LoginRequiredMixin, generic.DeleteView):
 class AddManufacturerView(LoginRequiredMixin, generic.CreateView):
     model = Manufacturer
     template_name = 'assortment/add_manufacturer.html'
-    fields = ['name']
+    form_class = AddManufacturerForm
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_staff and not request.user.is_superuser:

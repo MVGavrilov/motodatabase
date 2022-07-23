@@ -8,9 +8,11 @@
 {% if motorcycle_list.count != 0 %}
   {% for motorcycle in motorcycle_list %}
     <div class="container-fluid btn-group btn-block" role="group">
-        <a href="/motorcycle/{{ motorcycle.id }}/" class="btn btn-light col-11 text-left">{{ motorcycle.model }} : {{ motorcycle.name }}</a>
         {% if motorcycle.pub_user == user or user.is_superuser %}
+        <a href="/motorcycle/{{ motorcycle.id }}/" class="btn btn-light col-11 text-left">{{ motorcycle.model }} : {{ motorcycle.name }}</a>
         <a href="/delete_moto/{{ motorcycle.id }}/" class="btn btn-danger col-1">Удалить</a>
+        {% else %}
+        <a href="/motorcycle/{{ motorcycle.id }}/" class="btn btn-light text-left">{{ motorcycle.model }} : {{ motorcycle.name }}</a>
         {% endif %}
     </div>
   {% endfor %}

@@ -39,25 +39,18 @@
   border-top-right-radius: 0;
 }
 
+
+
 </style>
 <div class="container">
   <form class="form-signin" method="post">
     {% csrf_token %}
     <h2 class="form-signin-heading">Please sign in</h2>
-    {% if form.username.errors %}
     <input type="text" name="username" autocapitalize="none" autocomplete="username" maxlength="150" id="id_username"
-           class="form-control is-invalid" placeholder="User Name" required autofocus>
-    {% else %}
-    <input type="text" name="username" autocapitalize="none" autocomplete="username" maxlength="150" id="id_username"
-           class="form-control" placeholder="User Name" required autofocus>
-    {% endif %}
-    {% if form.password.errors %}
-    <input type="password" id="id_password" class="form-control is-invalid" placeholder="Password" name="password"
-           autocomplete="current-password" required>
-    {% else %}
-    <input type="password" id="id_password" class="form-control" placeholder="Password" name="password"
-           autocomplete="current-password" required>
-    {% endif %}
+           class="form-control {% if form.username.errors %} is-invalid {% endif %}" placeholder="User Name" required
+           autofocus>
+    <input type="password" id="id_password" class="form-control {% if form.password.errors %} is-invalid {% endif %}"
+           placeholder="Password" name="password" autocomplete="current-password" required>
     <div class="invalid-feedback">
       {% for error in form.username.errors %}
       <p>{{ error }}</p>
