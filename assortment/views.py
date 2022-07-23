@@ -49,7 +49,7 @@ class LogoutView(auth_views.LogoutView):
 class AddMotorcycleView(LoginRequiredMixin, generic.CreateView):
     model = Motorcycle
     template_name = 'assortment/add_motorcycle.html'
-    fields = ['name', 'year', 'description', 'photo', 'show_to', 'price', 'model']
+    fields = ['name', 'year', 'description', 'photo', 'show_to', 'price', 'mileage', 'model']
 
     manufacturers = Manufacturer.objects.all()
 
@@ -64,7 +64,7 @@ class AddMotorcycleView(LoginRequiredMixin, generic.CreateView):
 class EditMotorcycleView(LoginRequiredMixin, generic.UpdateView):
     model = Motorcycle
     template_name = 'assortment/add_motorcycle.html'  # TODO: переписать на изменение мотоцикла
-    fields = ['name', 'year', 'description', 'photo', 'show_to', 'price', 'model']
+    fields = ['name', 'year', 'description', 'photo', 'show_to', 'price', 'mileage', 'model']
 
     def dispatch(self, request, *args, **kwargs):
         if request.user != Motorcycle.objects.get(pk=kwargs['pk']).pub_user and not request.user.is_superuser:
