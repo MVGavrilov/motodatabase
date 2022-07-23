@@ -63,7 +63,7 @@ class AddMotorcycleView(LoginRequiredMixin, generic.CreateView):
 
 class EditMotorcycleView(LoginRequiredMixin, generic.UpdateView):
     model = Motorcycle
-    template_name = 'assortment/add_motorcycle.html'  # TODO: переписать на изменение мотоцикла
+    template_name = 'assortment/universal_form.html'  # TODO: переписать на изменение мотоцикла
     fields = ['name', 'year', 'description', 'photo', 'show_to', 'price', 'mileage', 'model']
 
     def dispatch(self, request, *args, **kwargs):
