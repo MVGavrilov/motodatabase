@@ -1,6 +1,3 @@
-from django.forms import ModelChoiceField
-from django.shortcuts import render
-
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
@@ -92,7 +89,8 @@ class DeleteMotorcycleView(LoginRequiredMixin, generic.DeleteView):
 class AddUserView(LoginRequiredMixin, generic.CreateView):
     model = User
     template_name = 'assortment/add_user.html'
-    fields = ['username', 'password', 'email', 'first_name', 'last_name', 'is_staff']
+    form_class = AddUserForm
+    # fields = ['username', 'password', 'email', 'first_name', 'last_name', 'is_staff']
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_superuser:
