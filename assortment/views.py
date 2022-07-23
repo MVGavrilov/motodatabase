@@ -4,7 +4,10 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
+
+from .forms import *
 from .models import *
+
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -39,6 +42,7 @@ class MotorcyclesListView(LoginRequiredMixin, generic.ListView):
 
 class LoginView(auth_views.LoginView):
     template_name = 'assortment/login.html'
+    form_class = LoginForm
 
 
 class LogoutView(auth_views.LogoutView):
@@ -159,6 +163,3 @@ class AddModelView(LoginRequiredMixin, generic.CreateView):
 
     def get_success_url(self):
         return reverse('motorcycles_list')
-
-
-
