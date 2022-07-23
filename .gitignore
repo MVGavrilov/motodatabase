@@ -1,4 +1,4 @@
 .idea
-assortment
+assortment/migrations
 media/photos
 db.sqlite3
