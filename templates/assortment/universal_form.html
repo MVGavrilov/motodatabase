@@ -1,0 +1,16 @@
+{% extends 'assortment/base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+<style>
+.form-add-model {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+</style>
+<form class="form-add-motorcycle" enctype="multipart/form-data" method="post">
+  {% csrf_token %}
+{% bootstrap_form form %}
+  <input class="btn btn-primary btn-block" type="submit" value="Сохранить">
+</form>
+{% endblock %}

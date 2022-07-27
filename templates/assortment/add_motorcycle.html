@@ -16,35 +16,38 @@
 
   <input class="form-control mb-1" type="text" name="name" maxlength="50" required id="id_name" placeholder="Имя">
 
-  <select class="form-control mb-1" name="model" required id="id_model">
-    <option value="" selected>Модель</option>
-    {% for mdl in form.model.field.queryset %}
-    <option value="{{ mdl.id }}">{{ mdl.name }}</option>
-    {% endfor %}
+  <select class="form-control mb-1" name="model" required id="select_manufacturer">
+    <option value="" disabled selected hidden>Производитель</option>
   </select>
 
-  <div class="input-group mb-1">
+
+  <select class="form-control mb-1" name="model" required id="id_model">
+    <option value="" disabled selected hidden>Модель</option>
+  </select>
+
+  <div class="input-group mb-2">
     <label for="id_photo">Фото:</label>
     <input class="form-control-file" type="file" name="photo" accept="image/*" id="id_photo">
   </div>
 
-  <div class="input-group">
-    <div><label class="input-group-text" for="id_year">Год:</label></div>
-    <input class="form-control mb-1" type="number" name="year" value="0" required id="id_year" placeholder="Год">
+  <div class="input-group mb-1">
+    <label class="input-group-text col-2" width="240" for="id_year">Год:</label>
+    <input class="form-control col-10" type="number" name="year" value="2000" required id="id_year" placeholder="Год">
   </div>
 
   <div class="input-group mb-1">
-    <div class="input-group-prepend">
-      <span class="input-group-text">Цена:</span>
-    </div>
-    <input class="form-control" type="number" name="price" value="0" required id="id_price">
+    <label class="input-group-text col-2" for="id_price">Цена:</label>
+    <input class="form-control col-10" type="number" name="price" value="0" required id="id_price">
   </div>
 
-  <div class="input-group">
-    <div class="input-group-prepend">
-      <span class="input-group-text mb-1">Описание:</span>
-    </div>
-    <textarea class="form-control mb-1" name="description" cols="40" rows="10" required id="id_description"
+  <div class="input-group mb-1">
+    <label class="input-group-text col-2" for="id_mileage">Пробег:</label>
+    <input class="form-control col-10" type="number" name="mileage" value="0" required id="id_mileage">
+  </div>
+
+  <div class="input-group mb-1">
+    <label class="input-group-text col-2" for="id_price">Описание:</label>
+    <textarea class="form-control col-10" name="description" cols="40" rows="10" required id="id_description"
               aria-label="Описание"></textarea>
   </div>
 

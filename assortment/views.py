@@ -1,6 +1,3 @@
-from django.forms import ModelChoiceField
-from django.shortcuts import render
-
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
@@ -52,7 +49,9 @@ class LogoutView(auth_views.LogoutView):
 class AddMotorcycleView(LoginRequiredMixin, generic.CreateView):
     model = Motorcycle
     template_name = 'assortment/add_motorcycle.html'
-    fields = ['name', 'year', 'description', 'photo', 'show_to', 'price', 'model']
+    fields = ['name', 'year', 'description', 'photo', 'show_to', 'price', 'mileage', 'model']
+
+    manufacturers = Manufacturer.objects.all()
 
     def form_valid(self, form):
         form.instance.pub_user = self.request.user
@@ -64,8 +63,8 @@ class AddMotorcycleView(LoginRequiredMixin, generic.CreateView):
 
 class EditMotorcycleView(LoginRequiredMixin, generic.UpdateView):
     model = Motorcycle
-    template_name = 'assortment/add_motorcycle.html'  # TODO: переписать на изменение мотоцикла
-    fields = ['name', 'year', 'description', 'photo', 'show_to', 'price', 'model']
+    template_name = 'assortment/universal_form.html'  # TODO: переписать на изменение мотоцикла
+    fields = ['name', 'year', 'description', 'photo', 'show_to', 'price', 'mileage', 'model']
 
     def dispatch(self, request, *args, **kwargs):
         if request.user != Motorcycle.objects.get(pk=kwargs['pk']).pub_user and not request.user.is_superuser:
@@ -92,7 +91,8 @@ class DeleteMotorcycleView(LoginRequiredMixin, generic.DeleteView):
 class AddUserView(LoginRequiredMixin, generic.CreateView):
     model = User
     template_name = 'assortment/add_user.html'
-    fields = ['username', 'password', 'email', 'first_name', 'last_name', 'is_staff']
+    form_class = AddUserForm
+    # fields = ['username', 'password', 'email', 'first_name', 'last_name', 'is_staff']
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_superuser:
@@ -140,7 +140,7 @@ class RemoveFeatureView(LoginRequiredMixin, generic.DeleteView):
 class AddManufacturerView(LoginRequiredMixin, generic.CreateView):
     model = Manufacturer
     template_name = 'assortment/add_manufacturer.html'
-    fields = ['name']
+    form_class = AddManufacturerForm
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_staff and not request.user.is_superuser:
@@ -163,3 +163,4 @@ class AddModelView(LoginRequiredMixin, generic.CreateView):
 
     def get_success_url(self):
         return reverse('motorcycles_list')
+
